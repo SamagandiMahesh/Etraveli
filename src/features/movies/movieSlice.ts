@@ -17,6 +17,7 @@ const initialState: MovieLayoutState = {
     imageList: {},
 };
 
+
 // Async thunk to fetch the list of movies
 export const fetchMovieList = createAsyncThunk<Movie[], void, { rejectValue: string }>(
     'movieLayout/fetchMovieList',
@@ -72,8 +73,8 @@ export const fetchMoviePoster = createAsyncThunk<any, { id: number }, { rejectVa
     'movieLayout/fetchMoviePoster',
     async ({ id }, { rejectWithValue }) => {
         try {
-            console.log({ id });
-            const response = await axios.get(`http://img.omdbapi.com/?apikey=b9a5e69d&i=${id}`, {
+            const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+            const response = await axios.get(`http://img.omdbapi.com/?apikey=${apiKey}&i=${id}`, {
                 responseType: 'blob', // Important to handle the response as a blob
               });
             return URL.createObjectURL(response.data);
