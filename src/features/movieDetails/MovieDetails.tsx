@@ -6,8 +6,8 @@ import { calculatePercentageRating } from '../../utils/utils';
 
 const MovieDetails: React.FC<{ movie: Movie, img: Record<string, string > }> = ({ movie, img }) => {
   const defaultImageUrl = "https://placehold.co/150x200";
-  const imageUrl = movie.imdbId && img[movie.imdbId]
-    ? img[movie.imdbId]
+  const imageUrl = movie?.imdbId && img[movie?.imdbId]
+    ? img[movie?.imdbId]
     : defaultImageUrl;
     
   return (
@@ -23,7 +23,7 @@ const MovieDetails: React.FC<{ movie: Movie, img: Record<string, string > }> = (
         <StyledRatingList>
           {movie?.ratings.map((rating, index) => (
             <StyledRatingItem key={index}>
-              {rating.Source}: {calculatePercentageRating(rating.Value)}%
+              {rating.Source}: {calculatePercentageRating(rating?.Value)}%
             </StyledRatingItem>
           ))}
         </StyledRatingList>
