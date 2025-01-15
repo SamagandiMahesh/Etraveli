@@ -61,7 +61,9 @@ export const fetchMovieRating = createAsyncThunk<any, { title: string; releaseYe
     'movieLayout/fetchMovieRating',
     async ({ title, releaseYear }, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://www.omdbapi.com/?apikey=b9a5e69d&t=${title}&y=${releaseYear}`);
+            const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+            console.log({apiKey});
+            const response = await axios.get(`https://www.omdbapi.com/?apikey=b9a5e69d&t=${title}&y=${releaseYear}`);
             return response.data;
         } catch (error) {
             return rejectWithValue('Failed to fetch movie ratings');
@@ -74,7 +76,7 @@ export const fetchMoviePoster = createAsyncThunk<any, { id: number }, { rejectVa
     async ({ id }, { rejectWithValue }) => {
         try {
             const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-            const response = await axios.get(`http://img.omdbapi.com/?apikey=${apiKey}&i=${id}`, {
+            const response = await axios.get(`https://img.omdbapi.com/?apikey=${apiKey}&i=${id}`, {
                 responseType: 'blob', // Important to handle the response as a blob
               });
             return URL.createObjectURL(response.data);
